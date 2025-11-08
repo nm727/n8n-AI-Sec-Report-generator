@@ -1,0 +1,497 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        288,
+        80
+      ],
+      "id": "b24278d8-f2a3-4050-ad81-a45363996eb3",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "model": "minimax/minimax-m2:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        432,
+        288
+      ],
+      "id": "b3c20a14-b482-49aa-b81a-4afa53adba52",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "bHFbLaX3CeSGj3XR",
+          "name": "OpenRouter account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "simplify": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify_Output', ``, 'boolean') }}",
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        720,
+        288
+      ],
+      "id": "9468f03e-1ece-45d6-ad36-600cb311e73a",
+      "name": "Message a model in Perplexity",
+      "credentials": {
+        "perplexityApi": {
+          "id": "2XrCv9bzsvLEp4ru",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "minimax/minimax-m2:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1168,
+        272
+      ],
+      "id": "48878d04-89ff-4efb-bc33-26f1ad7e9304",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "jz8pIwQBAdS4k1E2",
+          "name": "OpenRouter account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "minimax/minimax-m2:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        928
+      ],
+      "id": "f659fcbb-5ca3-40b5-acb0-1b97f4f35b35",
+      "name": "OpenRouter Chat Model2",
+      "credentials": {
+        "openRouterApi": {
+          "id": "bHFbLaX3CeSGj3XR",
+          "name": "OpenRouter account 6"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        896,
+        672
+      ],
+      "id": "fa48b74e-152c-46a4-864f-0e9dd5be2820",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "generate a report on cybersecurity best practises and defense strategies against ai-infused malware",
+        "options": {
+          "systemMessage": "You are an expert cybersecurity consultant, use the perplexity tool for relevant cybersecurity blue team strategies against novel attacks."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        560,
+        80
+      ],
+      "id": "874a6a39-045e-472e-a3e6-1b650687f69b",
+      "name": "AI Report Generator"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=here's the report: {{ $json.output }}",
+        "options": {
+          "systemMessage": "you are an experienced developer and engineer with extensive experience in devsecops and you will get a report from a previous security expert, give a constructive feedback and add code to the report to showcase some strategies."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1296,
+        64
+      ],
+      "id": "164b4a19-a7f2-4481-b3da-b67fed475d2a",
+      "name": "AI Feedback generator"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=here's the report and feedback: {{ $json.concatenated_text }}\n",
+        "options": {
+          "systemMessage": "You are a security manager and you get a security report and feedback on it from your team. Combine the data you get into one comprehensive beautified final report."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1440,
+        768
+      ],
+      "id": "6a66bf2c-fc80-4232-8ac7-bb463cbe2959",
+      "name": "AI Report Reconstructor"
+    },
+    {
+      "parameters": {
+        "model": "minimax/minimax-m2:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1936,
+        624
+      ],
+      "id": "5d96d287-f029-4e65-a0f8-c8ab9707f37d",
+      "name": "OpenRouter Chat Model3",
+      "credentials": {
+        "openRouterApi": {
+          "id": "bHFbLaX3CeSGj3XR",
+          "name": "OpenRouter account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "simplify": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify_Output', ``, 'boolean') }}",
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        2112,
+        624
+      ],
+      "id": "1258e12f-985a-4915-b8eb-136246de5442",
+      "name": "Message a model in Perplexity1",
+      "credentials": {
+        "perplexityApi": {
+          "id": "2XrCv9bzsvLEp4ru",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all incoming items\nconst items = $input.all();\n\n// Extract and join all \"output\" fields\nconst combinedText = items\n  .map(item => item.json.output || \"\")\n  .join(\"\\n\\n---\\n\\n\"); // separator between entries (optional)\n\n// Return a single item with the concatenated result\nreturn [\n  {\n    json: {\n      concatenated_text: combinedText,\n    },\n  },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        672
+      ],
+      "id": "e4408c75-8db9-42a7-927b-e81e08c5c939",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=here's the report: {{ $json.output }} ",
+        "options": {
+          "systemMessage": "You are an expert cybersecurity consultant, you will get an important security report. use the perplexity tool to foolproof the code and information mentioned and make sure the final report is accurate. don't add any information just correct the existing info.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1952,
+        416
+      ],
+      "id": "a7ec922c-6161-4a5e-a355-1eec004557a5",
+      "name": "AI Report Checker"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2000,
+        976
+      ],
+      "id": "09551f43-25f5-4b6a-a518-dd7e76feacab",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all incoming items\nconst items = $input.all();\n\n// Extract and join all \"output\" fields\nconst combinedText = items\n  .map(item => item.json.output || \"\")\n  .join(\"\\n\\n---\\n\\n\"); // separator between entries (optional)\n\n// Return a single item with the concatenated result\nreturn [\n  {\n    json: {\n      concatenated_text: combinedText,\n    },\n  },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2272,
+        976
+      ],
+      "id": "525a94bd-f756-463a-bc06-591ac2d02ebf",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=here's the report and feedback: {{ $json.concatenated_text }}\n",
+        "options": {
+          "systemMessage": "You are a security manager and you get a security report and feedback on it from your team of experts. Combine the data you get into one comprehensive beautified final report."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        2560,
+        976
+      ],
+      "id": "ff60cc87-5f95-4c64-bd57-0ffdca3f3492",
+      "name": "AI Report Reconstructor1"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2912,
+        976
+      ],
+      "id": "68b9fb1d-87af-4af4-95f5-8e8526305605",
+      "name": "Convert to File"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "AI Report Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Report Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model in Perplexity": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Report Generator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Feedback generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Report Reconstructor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Report Generator": {
+      "main": [
+        [
+          {
+            "node": "AI Feedback generator",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Feedback generator": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "AI Report Reconstructor": {
+      "main": [
+        [
+          {
+            "node": "AI Report Checker",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Report Checker",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model in Perplexity1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Report Checker",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Report Reconstructor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Report Checker": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "AI Report Reconstructor1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Report Reconstructor1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c08e2126cea59cba87ec321ba71395e7a4bea8dcab866b85373dde1c514f8054"
+  }
+}
